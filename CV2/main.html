@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Elegant CV / Resume Generator</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     :root{
       --bg:#0f172a;          /* app background */
@@ -584,7 +586,7 @@
           <button id="btn_save" title="Save to this browser">Save</button>
           <button id="btn_clear" class="ghost" title="Clear everything">Clear</button>
         </div>
-        <div class="tip">Tip: Export uses your browser's print-to-PDF with perfect A4 sizing.</div>
+        <div class="tip">Tip: Export generates a high-quality PDF with proper A4 sizing and margins.</div>
       </div>
 
       <div class="group">
@@ -803,9 +805,80 @@
 
     // Export / Save / Clear
     function bindActions(){
-      $('#btn_export').addEventListener('click', ()=>{ window.print(); });
+      $('#btn_export').addEventListener('click', generatePDF);
       $('#btn_save').addEventListener('click', ()=>{ saveLocal(true); });
       $('#btn_clear').addEventListener('click', ()=>{ if(confirm('Clear all inputs?')){ localStorage.removeItem('cv_state_v1'); location.reload(); } });
+    }
+
+    // Generate PDF function
+    function generatePDF() {
+      const paper = document.getElementById('paper');
+      const button = document.getElementById('btn_export');
+      const originalText = button.textContent;
+      
+      // Show loading state
+      button.textContent = 'Generating PDF...';
+      button.disabled = true;
+      
+      // Configure html2canvas options
+      const canvasOptions = {
+        scale: 2, // Higher quality
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        width: paper.offsetWidth,
+        height: paper.offsetHeight
+      };
+      
+      html2canvas(paper, canvasOptions).then(canvas => {
+        try {
+          const { jsPDF } = window.jspdf;
+          const imgData = canvas.toDataURL('image/png', 1.0);
+          
+          // Create PDF with A4 dimensions
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = pdf.internal.pageSize.getHeight();
+          
+          // Calculate dimensions to fit the page
+          const imgWidth = pdfWidth - 20; // 10mm margin on each side
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+          
+          // Add image to PDF
+          pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+          
+          // Generate filename with current date
+          const now = new Date();
+          const dateStr = now.toISOString().split('T')[0];
+          const name = document.getElementById('f_name').value || 'Resume';
+          const filename = `${name.replace(/\s+/g, '_')}_CV_${dateStr}.pdf`;
+          
+          // Save the PDF
+          pdf.save(filename);
+          
+          // Show success message
+          button.textContent = 'PDF Downloaded!';
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.disabled = false;
+          }, 2000);
+          
+        } catch (error) {
+          console.error('PDF generation error:', error);
+          button.textContent = 'Error generating PDF';
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.disabled = false;
+          }, 2000);
+        }
+      }).catch(error => {
+        console.error('Canvas generation error:', error);
+        button.textContent = 'Error generating PDF';
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.disabled = false;
+        }, 2000);
+      });
     }
 
     function saveLocal(notify){ localStorage.setItem('cv_state_v1', JSON.stringify(state)); if(notify){
