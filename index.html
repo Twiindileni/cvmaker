@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Maker - Professional Resume Templates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f72585;
+            --success: #4cc9f0;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --gray: #6c757d;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #4cc9f0 0%, #4895ef 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .resume-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatResume 20s infinite linear;
+        }
+
+        .resume-element:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+
+        .resume-element:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            animation-delay: 2s;
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+
+        .resume-element:nth-child(3) {
+            top: 40%;
+            left: 8%;
+            animation-delay: 4s;
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .resume-element:nth-child(4) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 6s;
+            font-size: 2.8rem;
+            color: var(--success);
+        }
+
+        .resume-element:nth-child(5) {
+            top: 80%;
+            left: 12%;
+            animation-delay: 8s;
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        .resume-element:nth-child(6) {
+            top: 30%;
+            left: 50%;
+            animation-delay: 10s;
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        .resume-element:nth-child(7) {
+            top: 70%;
+            right: 5%;
+            animation-delay: 12s;
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+
+        .resume-element:nth-child(8) {
+            top: 15%;
+            left: 70%;
+            animation-delay: 14s;
+            font-size: 2rem;
+            color: var(--success);
+        }
+
+        .resume-element:nth-child(9) {
+            top: 50%;
+            left: 25%;
+            animation-delay: 16s;
+            font-size: 2.3rem;
+            color: var(--primary);
+        }
+
+        .resume-element:nth-child(10) {
+            top: 85%;
+            right: 25%;
+            animation-delay: 18s;
+            font-size: 1.9rem;
+            color: var(--secondary);
+        }
+
+        @keyframes floatResume {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.1;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+                opacity: 0.15;
+            }
+            75% {
+                transform: translateY(-20px) rotate(270deg);
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(0px) rotate(360deg);
+                opacity: 0.1;
+            }
+        }
+
+        /* Floating Resume Icons */
+        .floating-icon {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatIcon 8s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(11) {
+            width: 60px;
+            height: 60px;
+            top: 25%;
+            left: 20%;
+            animation-delay: 0s;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .floating-icon:nth-child(12) {
+            width: 80px;
+            height: 80px;
+            top: 65%;
+            right: 20%;
+            animation-delay: 2s;
+            background: rgba(118, 75, 162, 0.1);
+        }
+
+        .floating-icon:nth-child(13) {
+            width: 40px;
+            height: 40px;
+            top: 45%;
+            left: 60%;
+            animation-delay: 4s;
+            background: rgba(247, 37, 133, 0.1);
+        }
+
+        .floating-icon:nth-child(14) {
+            width: 70px;
+            height: 70px;
+            top: 75%;
+            left: 40%;
+            animation-delay: 6s;
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        @keyframes floatIcon {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+            }
+            50% {
+                transform: translateY(-30px) scale(1.1);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--gray);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Template Buttons */
+        .template-buttons {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .template-btn {
+            padding: 1.5rem 3rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            min-width: 280px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .template-btn:hover::before {
+            left: 100%;
+        }
+
+        .template-btn:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-cv1 {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-cv1:hover {
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-cv2 {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+        }
+
+        .btn-cv2:hover {
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.4);
+        }
+
+        .btn-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            padding: 3rem 2rem;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 25px 25px 0 0;
+        }
+
+        .footer h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .footer h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .contact-section {
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            font-size: 1.3rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+            margin: 2rem 0;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(102, 126, 234, 0.05);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            transition: 0.3s ease;
+            z-index: -1;
+        }
+
+        .footer-links a:hover::before {
+            left: 0;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .footer-bottom span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .template-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .template-btn {
+                min-width: 250px;
+                padding: 1.2rem 2rem;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .footer {
+                padding: 2rem 1.5rem;
+                max-width: 90%;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .contact-section {
+                padding: 1.5rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-links a {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .template-btn {
+                min-width: 200px;
+                padding: 1rem 1.5rem;
+            }
+
+            .btn-icon {
+                font-size: 2.5rem;
+            }
+
+            .btn-title {
+                font-size: 1.3rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="resume-element"><i class="fas fa-file-alt"></i></div>
+        <div class="resume-element"><i class="fas fa-user-tie"></i></div>
+        <div class="resume-element"><i class="fas fa-briefcase"></i></div>
+        <div class="resume-element"><i class="fas fa-graduation-cap"></i></div>
+        <div class="resume-element"><i class="fas fa-star"></i></div>
+        <div class="resume-element"><i class="fas fa-certificate"></i></div>
+        <div class="resume-element"><i class="fas fa-trophy"></i></div>
+        <div class="resume-element"><i class="fas fa-code"></i></div>
+        <div class="resume-element"><i class="fas fa-palette"></i></div>
+        <div class="resume-element"><i class="fas fa-download"></i></div>
+        
+        <div class="floating-icon"></div>
+        <div class="floating-icon"></div>
+        <div class="floating-icon"></div>
+        <div class="floating-icon"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">
+                <i class="fas fa-file-alt"></i> CV Maker
+            </h1>
+            <p class="tagline">Create professional resumes in minutes with our beautiful templates</p>
+        </header>
+
+        <!-- Template Buttons -->
+        <div class="template-buttons">
+            <a href="main.html" class="template-btn btn-cv1">
+                <i class="fas fa-palette btn-icon"></i>
+                <div class="btn-title">CV1 Template</div>
+                <div class="btn-description">Elegant design with modern gradients<br>Perfect for tech professionals</div>
+            </a>
+            
+            <a href="CV2/main.html" class="template-btn btn-cv2">
+                <i class="fas fa-moon btn-icon"></i>
+                <div class="btn-title">CV2 Template</div>
+                <div class="btn-description">Modern dark theme<br>Ideal for designers & developers</div>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h3>Contact Us</h3>
+            <div class="contact-section">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-building"></i>
+                        <span>Purpose Technology</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>0817854573</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-links">
+                <a href="main.html">CV1 Template</a>
+                <a href="CV2/main.html">CV2 Template</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 <span>Purpose Technology</span>. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Add some interactive effects
+        document.querySelectorAll('.template-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click animation
+        document.querySelectorAll('.template-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = '50%';
+                ripple.style.top = '50%';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                ripple.style.marginLeft = '-10px';
+                ripple.style.marginTop = '-10px';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elegant CV / Resume Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f172a;          /* app background */
+      --panel:#111827cc;     /* sidebar panel */
+      --ink:#0b1220;         /* CV text */
+      --muted:#5b667a;       /* muted text */
+      --brand:#2563eb;       /* accent */
+      --brand-2:#0ea5e9;     /* accent 2 */
+      --paper:#ffffff;       /* CV paper */
+      --chip:#eef2ff;        /* skill chip */
+      --chip-ink:#333a55;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:linear-gradient(145deg,#0b1022,#0a142f 40%,#0a1b3a); color:#e5e7eb; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
+    .app{display:grid; grid-template-columns: 380px 1fr; gap:24px; padding:24px; min-height:100vh}
+
+    /* Sidebar */
+    .panel{position:sticky; top:24px; align-self:start; background:linear-gradient(180deg,#0b1220,#0b1324); border:1px solid #1f2937; border-radius:20px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .panel h2{margin:0 0 10px; font-size:18px; letter-spacing:.2px}
+    .group{border:1px solid #1f2a40; border-radius:16px; padding:14px; margin-bottom:14px; background:#0b1326}
+    .group h3{margin:.2rem 0 10px; font-size:14px; color:#c7d2fe; font-weight:700; letter-spacing:.3px}
+    label{display:block; font-size:12px; color:#b9c0cf; margin:10px 0 4px}
+    input[type="text"],input[type="email"],input[type="url"],input[type="date"],textarea{width:100%; padding:10px 12px; border-radius:12px; border:1px solid #24314b; background:#0a1122; color:#e5e7eb; outline:none}
+    textarea{min-height:78px; resize:vertical}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    .controls{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px}
+    button{cursor:pointer; border:1px solid #1f2a40; background:#0b1326; color:#e5e7eb; padding:10px 12px; border-radius:12px; font-weight:600}
+    button.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2)); border:0}
+    button.ghost{background:transparent; border:1px dashed #334155}
+    .template-select{width:100%;}
+    .tip{font-size:11px; color:#9aa3b2; margin-top:6px}
+
+    .list{display:flex; flex-direction:column; gap:10px}
+    .item-card{border:1px dashed #2a3653; background:#0a1226; padding:10px; border-radius:12px}
+
+    /* Canvas Preview */
+    .stage{display:grid; place-items:start center; padding:10px}
+    .paper{width:210mm; min-height:297mm; background:var(--paper); color:var(--ink); border-radius:18px; box-shadow:0 30px 80px rgba(0,0,0,.5); padding:20mm; position:relative}
+    .head{display:grid; grid-template-columns:90px 1fr; gap:18px; align-items:center; border-bottom:2px solid #eef2ff; padding-bottom:14px; margin-bottom:14px}
+    .avatar{width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid #e2e8f0}
+    .name{font-size:28px; font-weight:800; letter-spacing:.2px}
+    .role{color:var(--muted); margin-top:2px; font-weight:600}
+
+    .cv-grid{display:grid; grid-template-columns: 190px 1fr; gap:16px}
+    .left small{display:block; color:#8a93a8}
+    .sect-title{font-size:12.5px; letter-spacing:.25em; color:#6b7280; font-weight:800; margin:18px 0 8px}
+    .contact a{color:#334155; text-decoration:none}
+
+    .tag-list{display:flex; flex-wrap:wrap; gap:6px}
+    .chip{background:var(--chip); color:var(--chip-ink); padding:6px 10px; border-radius:999px; font-weight:600; font-size:12px; border:1px solid #dde3ff}
+
+    .entry{margin:10px 0 14px}
+    .entry .top{display:flex; justify-content:space-between; gap:10px; font-weight:700}
+    .entry .sub{color:#64748b; font-weight:600; margin-top:2px}
+    .entry p{margin:6px 0 0; color:#384155; line-height:1.6}
+
+    /* Template Variants */
+    .paper.template-classic .name{font-family:Playfair Display,serif; font-weight:700; font-size:30px}
+    .paper.template-classic .role{color:#475569}
+    .paper.template-modern{border:1px solid #e6ecff}
+    .paper.template-modern .head{border-bottom:0; background:linear-gradient(135deg,#eef2ff 0%,#f5f7ff 60%, #ffffff 100%); padding:16px; border-radius:14px}
+    .paper.template-modern .name{font-size:26px}
+    .paper.template-elegant{border:1px solid #eae6df}
+    .paper.template-elegant .name{letter-spacing:.5px}
+    .paper.template-elegant .sect-title{color:#8b7355}
+
+    /* Print Styles */
+    @page { size: A4; margin: 12mm }
+    @media print{
+      body{background:white}
+      .panel, .app{display:block}
+      .panel{display:none}
+      .stage{padding:0}
+      .paper{box-shadow:none; border-radius:0; width:auto; min-height:0; padding:0}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- SIDEBAR FORM -->
+    <aside class="panel" aria-label="Resume form">
+      <h2>Resume Builder</h2>
+      <div class="group">
+        <h3>Basics</h3>
+        <label>Full name</label>
+        <input id="f_name" type="text" placeholder="Jane Doe" />
+        <label>Job title</label>
+        <input id="f_role" type="text" placeholder="Senior Software Engineer" />
+        <div class="row">
+          <div>
+            <label>Email</label>
+            <input id="f_email" type="email" placeholder="jane@company.com" />
+          </div>
+          <div>
+            <label>Phone</label>
+            <input id="f_phone" type="text" placeholder="+264 81 000 0000" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Location</label>
+            <input id="f_location" type="text" placeholder="Windhoek, Namibia" />
+          </div>
+          <div>
+            <label>Website / LinkedIn</label>
+            <input id="f_site" type="url" placeholder="https://linkedin.com/in/jane" />
+          </div>
+        </div>
+        <label>Profile summary</label>
+        <textarea id="f_summary" placeholder="3–5 lines that sell your strongest skills, impact and tools."></textarea>
+        <label>Photo</label>
+        <input id="f_photo" type="file" accept="image/*" />
+        <div class="controls">
+          <select id="f_template" class="template-select">
+            <option value="template-classic">Classic</option>
+            <option value="template-modern" selected>Modern</option>
+            <option value="template-elegant">Elegant</option>
+          </select>
+          <button id="btn_export" class="primary" title="Export PDF">Export PDF</button>
+          <button id="btn_save" title="Save to this browser">Save</button>
+          <button id="btn_clear" class="ghost" title="Clear everything">Clear</button>
+        </div>
+        <div class="tip">Tip: Export uses your browser's print-to-PDF with perfect A4 sizing.</div>
+      </div>
+
+      <div class="group">
+        <h3>Skills</h3>
+        <label>Comma separated</label>
+        <input id="f_skills" type="text" placeholder="JavaScript, React, SQL, Docker, Linux" />
+      </div>
+
+      <div class="group">
+        <h3>Experience</h3>
+        <div id="exp_list" class="list"></div>
+        <button id="add_exp">+ Add experience</button>
+      </div>
+
+      <div class="group">
+        <h3>Education</h3>
+        <div id="edu_list" class="list"></div>
+        <button id="add_edu">+ Add education</button>
+      </div>
+    </aside>
+
+    <!-- PREVIEW STAGE -->
+    <main class="stage">
+      <section id="paper" class="paper template-modern" aria-label="CV Preview">
+        <header class="head">
+          <img id="v_photo" class="avatar" alt="avatar" src="" />
+          <div>
+            <div id="v_name" class="name">Your Name</div>
+            <div id="v_role" class="role">Your Role</div>
+          </div>
+        </header>
+        <div class="cv-grid">
+          <aside class="left">
+            <div class="sect">
+              <div class="sect-title">CONTACT</div>
+              <div class="contact">
+                <small id="v_email">jane@company.com</small>
+                <small id="v_phone">+264 81 000 0000</small>
+                <small id="v_location">Windhoek, Namibia</small>
+                <small><a id="v_site" href="#" target="_blank" rel="noopener">linkedin.com/in/jane</a></small>
+              </div>
+            </div>
+            <div class="sect">
+              <div class="sect-title">SKILLS</div>
+              <div id="v_skills" class="tag-list"></div>
+            </div>
+          </aside>
+          <section class="right">
+            <div class="sect">
+              <div class="sect-title">PROFILE</div>
+              <p id="v_summary" style="color:#374151; line-height:1.7; margin-top:6px">Short professional summary goes here. Keep it concise and impact‑oriented.</p>
+            </div>
+            <div class="sect">
+              <div class="sect-title">EXPERIENCE</div>
+              <div id="v_experience"></div>
+            </div>
+            <div class="sect">
+              <div class="sect-title">EDUCATION</div>
+              <div id="v_education"></div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="tpl_exp">
+    <div class="item-card exp-item">
+      <div class="row">
+        <div>
+          <label>Job title</label>
+          <input data-k="title" type="text" placeholder="Software Engineer" />
+        </div>
+        <div>
+          <label>Company</label>
+          <input data-k="company" type="text" placeholder="Purpose Technology" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Location</label>
+          <input data-k="location" type="text" placeholder="Windhoek" />
+        </div>
+        <div class="row">
+          <div>
+            <label>Start</label>
+            <input data-k="start" type="text" placeholder="2023" />
+          </div>
+          <div>
+            <label>End</label>
+            <input data-k="end" type="text" placeholder="Present" />
+          </div>
+        </div>
+      </div>
+      <label>Impact / Responsibilities</label>
+      <textarea data-k="desc" placeholder="Built X that achieved Y using Z."></textarea>
+      <div class="controls"><button class="remove">Remove</button></div>
+    </div>
+  </template>
+
+  <template id="tpl_edu">
+    <div class="item-card edu-item">
+      <div class="row">
+        <div>
+          <label>Degree / Program</label>
+          <input data-k="degree" type="text" placeholder="BSc Computer Science" />
+        </div>
+        <div>
+          <label>Institution</label>
+          <input data-k="school" type="text" placeholder="University of Namibia" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Years</label>
+          <input data-k="years" type="text" placeholder="2018 – 2022" />
+        </div>
+        <div>
+          <label>Notes</label>
+          <input data-k="notes" type="text" placeholder="Awards, GPA, focus" />
+        </div>
+      </div>
+      <div class="controls"><button class="remove">Remove</button></div>
+    </div>
+  </template>
+
+  <script>
+    const $ = (q, el=document) => el.querySelector(q);
+    const $$ = (q, el=document) => Array.from(el.querySelectorAll(q));
+
+    const state = {
+      basics: { name:'', role:'', email:'', phone:'', location:'', site:'', summary:'', photo:'' },
+      skills: [],
+      experience: [],
+      education: []
+    };
+
+    // Bind basics
+    function bindBasics(){
+      const map = [
+        ['f_name','name','v_name'],
+        ['f_role','role','v_role'],
+        ['f_email','email','v_email'],
+        ['f_phone','phone','v_phone'],
+        ['f_location','location','v_location'],
+        ['f_site','site','v_site'],
+        ['f_summary','summary','v_summary']
+      ];
+      map.forEach(([fid,key,vid])=>{
+        const input = $('#'+fid);
+        input.addEventListener('input', ()=>{
+          state.basics[key] = input.value;
+          if(vid==='v_site'){
+            const a = $('#v_site'); a.textContent = input.value||'link'; a.href=input.value||'#';
+          }else{
+            const v = $('#'+vid); v.textContent = input.value || (vid==='v_summary' ? 'Short professional summary goes here. Keep it concise and impact‑oriented.' : v.textContent);
+          }
+          saveLocal();
+        });
+      });
+      $('#f_photo').addEventListener('change', e=>{
+        const file = e.target.files[0];
+        if(!file) return; const r=new FileReader();
+        r.onload=()=>{ state.basics.photo=r.result; $('#v_photo').src=r.result; saveLocal(); };
+        r.readAsDataURL(file);
+      });
+    }
+
+    // Skills
+    function bindSkills(){
+      const i = $('#f_skills');
+      const render=()=>{
+        const wrap = $('#v_skills'); wrap.innerHTML='';
+        state.skills.filter(Boolean).forEach(s=>{
+          const span=document.createElement('span'); span.className='chip'; span.textContent=s.trim(); wrap.appendChild(span);
+        });
+      };
+      i.addEventListener('input', ()=>{
+        state.skills = i.value.split(',').map(s=>s.trim()).filter(Boolean); render(); saveLocal();
+      });
+      render();
+    }
+
+    // Experience & Education builders
+    function makeItem(tplId, listEl, arrKey, renderTarget, builder){
+      const tpl = $('#'+tplId).content.firstElementChild.cloneNode(true);
+      listEl.appendChild(tpl);
+      const obj = {}; $$('.'+tpl.classList[1]+' [data-k]', tpl).forEach(inp=>{ obj[inp.dataset.k]=''; inp.addEventListener('input',()=>{ obj[inp.dataset.k]=inp.value; draw(); saveLocal(); }); });
+      $('.remove',tpl).addEventListener('click', ()=>{ const idx=state[arrKey].indexOf(obj); if(idx>-1) state[arrKey].splice(idx,1); tpl.remove(); draw(); saveLocal(); });
+      state[arrKey].push(obj); draw(); saveLocal();
+      function draw(){ renderTarget.innerHTML = builder(state[arrKey]); }
+    }
+
+    function buildExp(arr){
+      return arr.map(x=>`
+        <div class="entry">
+          <div class="top"><div>${escapeHtml(x.title||'')}</div><div>${escapeHtml(x.start||'')} – ${escapeHtml(x.end||'')}</div></div>
+          <div class="sub">${escapeHtml(x.company||'')}${x.location? ' · '+escapeHtml(x.location):''}</div>
+          ${x.desc?`<p>${escapeHtml(x.desc)}</p>`:''}
+        </div>`).join('');
+    }
+    function buildEdu(arr){
+      return arr.map(x=>`
+        <div class="entry">
+          <div class="top"><div>${escapeHtml(x.degree||'')}</div><div>${escapeHtml(x.years||'')}</div></div>
+          <div class="sub">${escapeHtml(x.school||'')}</div>
+          ${x.notes?`<p>${escapeHtml(x.notes)}</p>`:''}
+        </div>`).join('');
+    }
+
+    // Template switcher
+    function bindTemplate(){
+      const sel = $('#f_template'); const paper = $('#paper');
+      sel.addEventListener('change', ()=>{ paper.className = 'paper '+sel.value; saveLocal(); });
+    }
+
+    // Export / Save / Clear
+    function bindActions(){
+      $('#btn_export').addEventListener('click', ()=>{ window.print(); });
+      $('#btn_save').addEventListener('click', ()=>{ saveLocal(true); });
+      $('#btn_clear').addEventListener('click', ()=>{ if(confirm('Clear all inputs?')){ localStorage.removeItem('cv_state_v1'); location.reload(); } });
+    }
+
+    function saveLocal(notify){ localStorage.setItem('cv_state_v1', JSON.stringify(state)); if(notify){
+      const b=$('#btn_save'); const txt=b.textContent; b.textContent='Saved ✓'; setTimeout(()=>b.textContent=txt,1200);
+    }}
+    function loadLocal(){
+      const s = localStorage.getItem('cv_state_v1'); if(!s) return;
+      try{ const obj=JSON.parse(s); Object.assign(state.basics,obj.basics||{}); state.skills=obj.skills||[]; state.experience=obj.experience||[]; state.education=obj.education||[]; 
+        // basics
+        $('#f_name').value=state.basics.name||''; $('#v_name').textContent=state.basics.name||'Your Name';
+        $('#f_role').value=state.basics.role||''; $('#v_role').textContent=state.basics.role||'Your Role';
+        $('#f_email').value=state.basics.email||''; $('#v_email').textContent=state.basics.email||'jane@company.com';
+        $('#f_phone').value=state.basics.phone||''; $('#v_phone').textContent=state.basics.phone||'+264 81 000 0000';
+        $('#f_location').value=state.basics.location||''; $('#v_location').textContent=state.basics.location||'Windhoek, Namibia';
+        $('#f_site').value=state.basics.site||''; $('#v_site').textContent=state.basics.site||'linkedin.com/in/jane'; $('#v_site').href=state.basics.site||'#';
+        $('#f_summary').value=state.basics.summary||''; $('#v_summary').textContent=state.basics.summary||'Short professional summary goes here. Keep it concise and impact‑oriented.';
+        if(state.basics.photo){ $('#v_photo').src=state.basics.photo; }
+        // skills
+        $('#f_skills').value=state.skills.join(', ');
+        const wrap=$('#v_skills'); wrap.innerHTML=''; state.skills.forEach(s=>{ const span=document.createElement('span'); span.className='chip'; span.textContent=s; wrap.appendChild(span); });
+        // template
+        const paper = $('#paper'); const storedCls=(obj.paperClass||'template-modern'); paper.className='paper '+storedCls; $('#f_template').value=storedCls;
+        // exp / edu
+        const expList=$('#exp_list'); const eduList=$('#edu_list');
+        state.experience.forEach(e=>{ const t=$('#tpl_exp').content.firstElementChild.cloneNode(true); expList.appendChild(t); $$('.exp-item [data-k]',t).forEach(inp=>{ const k=inp.dataset.k; inp.value=e[k]||''; inp.addEventListener('input',()=>{ e[k]=inp.value; $('#v_experience').innerHTML=buildExp(state.experience); saveLocal();});}); $('.remove',t).addEventListener('click',()=>{ const i=state.experience.indexOf(e); if(i>-1) state.experience.splice(i,1); t.remove(); $('#v_experience').innerHTML=buildExp(state.experience); saveLocal();}); });
+        $('#v_experience').innerHTML=buildExp(state.experience);
+        state.education.forEach(ed=>{ const t=$('#tpl_edu').content.firstElementChild.cloneNode(true); eduList.appendChild(t); $$('.edu-item [data-k]',t).forEach(inp=>{ const k=inp.dataset.k; inp.value=ed[k]||''; inp.addEventListener('input',()=>{ ed[k]=inp.value; $('#v_education').innerHTML=buildEdu(state.education); saveLocal();});}); $('.remove',t).addEventListener('click',()=>{ const i=state.education.indexOf(ed); if(i>-1) state.education.splice(i,1); t.remove(); $('#v_education').innerHTML=buildEdu(state.education); saveLocal();}); });
+        $('#v_education').innerHTML=buildEdu(state.education);
+      }catch(e){ console.warn('Failed to load state',e); }
+    }
+
+    function escapeHtml(str=''){ return str.replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
+
+    // Init
+    bindBasics(); bindSkills(); bindTemplate(); bindActions();
+    loadLocal();
+
+    // Adders
+    $('#add_exp').addEventListener('click', ()=>{
+      makeItem('tpl_exp', $('#exp_list'), 'experience', $('#v_experience'), buildExp);
+    });
+    $('#add_edu').addEventListener('click', ()=>{
+      makeItem('tpl_edu', $('#edu_list'), 'education', $('#v_education'), buildEdu);
+    });
+
+    // Keep paper class in state
+    new MutationObserver(()=>{ const cls=[...$('#paper').classList].find(c=>c.startsWith('template-')); state.paperClass = cls; saveLocal(); }).observe($('#paper'),{attributes:true});
+
+  </script>
+</body>
+</html>
