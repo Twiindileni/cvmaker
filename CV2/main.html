@@ -74,6 +74,460 @@
     .paper.template-elegant .name{letter-spacing:.5px}
     .paper.template-elegant .sect-title{color:#8b7355}
 
+    /* Responsive Design */
+    
+    /* Large Desktop (1400px and up) */
+    @media (min-width: 1400px) {
+      .app {
+        grid-template-columns: 420px 1fr;
+        gap: 32px;
+        padding: 32px;
+      }
+      
+      .panel {
+        padding: 24px;
+      }
+      
+      .paper {
+        width: 240mm;
+        min-height: 320mm;
+        padding: 25mm;
+      }
+    }
+
+    /* Desktop (1200px - 1399px) */
+    @media (min-width: 1200px) and (max-width: 1399px) {
+      .app {
+        grid-template-columns: 400px 1fr;
+        gap: 28px;
+        padding: 28px;
+      }
+      
+      .paper {
+        width: 220mm;
+        min-height: 310mm;
+      }
+    }
+
+    /* Small Desktop (992px - 1199px) */
+    @media (min-width: 992px) and (max-width: 1199px) {
+      .app {
+        grid-template-columns: 380px 1fr;
+        gap: 24px;
+        padding: 24px;
+      }
+      
+      .paper {
+        width: 210mm;
+        min-height: 297mm;
+      }
+    }
+
+    /* Tablet Landscape (768px - 991px) */
+    @media (min-width: 768px) and (max-width: 991px) {
+      .app {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+      }
+      
+      .panel {
+        position: static;
+        margin-bottom: 20px;
+      }
+      
+      .paper {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 210mm;
+      }
+      
+      .cv-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .left {
+        order: 2;
+      }
+      
+      .right {
+        order: 1;
+      }
+    }
+
+    /* Tablet Portrait (576px - 767px) */
+    @media (min-width: 576px) and (max-width: 767px) {
+      .app {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px;
+      }
+      
+      .panel {
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+      
+      .paper {
+        width: 100%;
+        padding: 15mm;
+        border-radius: 12px;
+      }
+      
+      .head {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+      }
+      
+      .avatar {
+        width: 80px;
+        height: 80px;
+        margin-right: 0;
+      }
+      
+      .name {
+        font-size: 24px;
+      }
+      
+      .role {
+        font-size: 16px;
+      }
+      
+      .cv-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      
+      .left {
+        order: 2;
+      }
+      
+      .right {
+        order: 1;
+      }
+      
+      .contact {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      
+      .tag-list {
+        justify-content: center;
+      }
+    }
+
+    /* Mobile Landscape (480px - 575px) */
+    @media (min-width: 480px) and (max-width: 575px) {
+      .app {
+        padding: 12px;
+        gap: 12px;
+      }
+      
+      .panel {
+        padding: 12px;
+      }
+      
+      .paper {
+        padding: 12mm;
+        border-radius: 10px;
+      }
+      
+      .head {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+      }
+      
+      .avatar {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .name {
+        font-size: 22px;
+      }
+      
+      .role {
+        font-size: 14px;
+      }
+      
+      .cv-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      
+      .sect-title {
+        font-size: 11px;
+        margin: 12px 0 6px;
+      }
+      
+      .contact {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      
+      .contact small {
+        font-size: 12px;
+      }
+      
+      .chip {
+        padding: 4px 8px;
+        font-size: 11px;
+      }
+      
+      .entry {
+        margin: 8px 0 10px;
+      }
+      
+      .entry .top {
+        font-size: 14px;
+      }
+      
+      .entry .sub {
+        font-size: 12px;
+      }
+      
+      .entry p {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+    }
+
+    /* Mobile Portrait (320px - 479px) */
+    @media (max-width: 479px) {
+      .app {
+        padding: 8px;
+        gap: 8px;
+      }
+      
+      .panel {
+        padding: 10px;
+        border-radius: 12px;
+      }
+      
+      .paper {
+        padding: 10mm;
+        border-radius: 8px;
+      }
+      
+      .head {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+      }
+      
+      .avatar {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .name {
+        font-size: 20px;
+      }
+      
+      .role {
+        font-size: 13px;
+      }
+      
+      .cv-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      
+      .sect-title {
+        font-size: 10px;
+        margin: 10px 0 5px;
+      }
+      
+      .contact {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+      
+      .contact small {
+        font-size: 11px;
+      }
+      
+      .chip {
+        padding: 3px 6px;
+        font-size: 10px;
+      }
+      
+      .entry {
+        margin: 6px 0 8px;
+      }
+      
+      .entry .top {
+        font-size: 13px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+      
+      .entry .sub {
+        font-size: 11px;
+      }
+      
+      .entry p {
+        font-size: 11px;
+        line-height: 1.3;
+      }
+      
+      /* Form adjustments */
+      .group {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      
+      .group h3 {
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+      
+      label {
+        font-size: 11px;
+        margin: 8px 0 3px;
+      }
+      
+      input[type="text"], input[type="email"], input[type="url"], input[type="date"], textarea {
+        padding: 8px 10px;
+        font-size: 12px;
+        border-radius: 8px;
+      }
+      
+      textarea {
+        min-height: 60px;
+      }
+      
+      button {
+        padding: 8px 10px;
+        font-size: 12px;
+        border-radius: 8px;
+      }
+      
+      .template-select {
+        font-size: 12px;
+      }
+      
+      .tip {
+        font-size: 10px;
+      }
+      
+      .item-card {
+        padding: 8px;
+        border-radius: 8px;
+      }
+      
+      .row {
+        gap: 8px;
+      }
+    }
+
+    /* Extra Small Mobile (max-width: 320px) */
+    @media (max-width: 320px) {
+      .app {
+        padding: 6px;
+        gap: 6px;
+      }
+      
+      .panel {
+        padding: 8px;
+      }
+      
+      .paper {
+        padding: 8mm;
+        border-radius: 6px;
+      }
+      
+      .name {
+        font-size: 18px;
+      }
+      
+      .role {
+        font-size: 12px;
+      }
+      
+      .avatar {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .sect-title {
+        font-size: 9px;
+      }
+      
+      .contact small {
+        font-size: 10px;
+      }
+      
+      .chip {
+        padding: 2px 4px;
+        font-size: 9px;
+      }
+      
+      .entry .top {
+        font-size: 12px;
+      }
+      
+      .entry .sub {
+        font-size: 10px;
+      }
+      
+      .entry p {
+        font-size: 10px;
+      }
+      
+      input[type="text"], input[type="email"], input[type="url"], input[type="date"], textarea {
+        padding: 6px 8px;
+        font-size: 11px;
+      }
+      
+      button {
+        padding: 6px 8px;
+        font-size: 11px;
+      }
+    }
+
+    /* Landscape Orientation Adjustments */
+    @media (orientation: landscape) and (max-height: 600px) {
+      .app {
+        grid-template-columns: 350px 1fr;
+        padding: 12px;
+      }
+      
+      .panel {
+        position: sticky;
+        top: 12px;
+        max-height: calc(100vh - 24px);
+        overflow-y: auto;
+      }
+      
+      .paper {
+        transform: scale(0.7);
+        transform-origin: top center;
+      }
+    }
+
+    /* High DPI Displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .paper {
+        box-shadow: 0 20px 60px rgba(0,0,0,.6);
+      }
+      
+      .panel {
+        box-shadow: 0 8px 25px rgba(0,0,0,.4);
+      }
+    }
+
     /* Print Styles */
     @page { size: A4; margin: 12mm }
     @media print{

@@ -480,10 +480,124 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
+
+        /* Large Desktop (1400px and up) */
+        @media (min-width: 1400px) {
+            .main-content {
+                padding: 3rem;
+            }
+
+            .template-buttons {
+                gap: 3rem;
+            }
+
+            .template-btn {
+                min-width: 320px;
+                padding: 2rem 3rem;
+            }
+
+            .logo {
+                font-size: 4rem;
+            }
+
+            .tagline {
+                font-size: 1.5rem;
+            }
+
+            .footer {
+                max-width: 800px;
+                padding: 4rem 3rem;
+            }
+        }
+
+        /* Desktop (1200px - 1399px) */
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            .main-content {
+                padding: 2.5rem;
+            }
+
+            .template-btn {
+                min-width: 300px;
+                padding: 1.8rem 2.5rem;
+            }
+
+            .logo {
+                font-size: 3.5rem;
+            }
+
+            .footer {
+                max-width: 750px;
+            }
+        }
+
+        /* Small Desktop (992px - 1199px) */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .main-content {
+                padding: 2rem;
+            }
+
+            .template-btn {
+                min-width: 280px;
+                padding: 1.5rem 2rem;
+            }
+
+            .logo {
+                font-size: 3rem;
+            }
+
+            .footer {
+                max-width: 700px;
+            }
+        }
+
+        /* Tablet Landscape (768px - 991px) */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .template-buttons {
+                gap: 1.5rem;
+            }
+
+            .template-btn {
+                min-width: 260px;
+                padding: 1.3rem 1.8rem;
+            }
+
+            .logo {
+                font-size: 2.8rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .footer {
+                padding: 2.5rem 2rem;
+                max-width: 90%;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .contact-section {
+                padding: 1.8rem;
+            }
+        }
+
+        /* Tablet Portrait (576px - 767px) */
+        @media (min-width: 576px) and (max-width: 767px) {
+            .main-content {
+                padding: 1.2rem;
+            }
+
             .template-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 1.5rem;
             }
 
             .template-btn {
@@ -524,13 +638,20 @@
             }
         }
 
-        @media (max-width: 480px) {
+        /* Mobile Landscape (480px - 575px) */
+        @media (min-width: 480px) and (max-width: 575px) {
             .main-content {
                 padding: 1rem;
             }
 
+            .template-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.2rem;
+            }
+
             .template-btn {
-                min-width: 200px;
+                min-width: 220px;
                 padding: 1rem 1.5rem;
             }
 
@@ -542,8 +663,254 @@
                 font-size: 1.3rem;
             }
 
+            .btn-description {
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 2.2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .footer {
+                padding: 1.8rem 1.2rem;
+                max-width: 95%;
+            }
+
+            .footer h3 {
+                font-size: 1.6rem;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .contact-section {
+                padding: 1.2rem;
+            }
+
+            .contact-item {
+                padding: 0.8rem;
+                font-size: 1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .footer-links a {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Mobile Portrait (320px - 479px) */
+        @media (max-width: 479px) {
+            .main-content {
+                padding: 0.8rem;
+            }
+
+            .template-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .template-btn {
+                min-width: 200px;
+                padding: 1rem 1.2rem;
+            }
+
+            .btn-icon {
+                font-size: 2.2rem;
+            }
+
+            .btn-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-description {
+                font-size: 0.85rem;
+            }
+
             .logo {
                 font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 0.95rem;
+            }
+
+            .footer {
+                padding: 1.5rem 1rem;
+                max-width: 98%;
+            }
+
+            .footer h3 {
+                font-size: 1.4rem;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 0.6rem;
+            }
+
+            .contact-section {
+                padding: 1rem;
+            }
+
+            .contact-item {
+                padding: 0.7rem;
+                font-size: 0.95rem;
+            }
+
+            .contact-item i {
+                font-size: 1.1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.6rem;
+            }
+
+            .footer-links a {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .footer-bottom {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Extra Small Mobile (max-width: 320px) */
+        @media (max-width: 320px) {
+            .main-content {
+                padding: 0.5rem;
+            }
+
+            .template-btn {
+                min-width: 180px;
+                padding: 0.8rem 1rem;
+            }
+
+            .btn-icon {
+                font-size: 2rem;
+            }
+
+            .btn-title {
+                font-size: 1.1rem;
+            }
+
+            .btn-description {
+                font-size: 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .tagline {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 1.2rem 0.8rem;
+            }
+
+            .footer h3 {
+                font-size: 1.2rem;
+            }
+
+            .contact-item {
+                padding: 0.6rem;
+                font-size: 0.9rem;
+            }
+
+            .footer-links a {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Landscape Orientation Adjustments */
+        @media (orientation: landscape) and (max-height: 600px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .template-buttons {
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .template-btn {
+                min-width: 200px;
+                padding: 0.8rem 1.2rem;
+            }
+
+            .btn-icon {
+                font-size: 2rem;
+            }
+
+            .btn-title {
+                font-size: 1.1rem;
+            }
+
+            .btn-description {
+                font-size: 0.8rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .footer {
+                padding: 1rem;
+            }
+        }
+
+        /* High DPI Displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .template-btn {
+                box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+            }
+
+            .footer {
+                box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .animated-background {
+                display: none;
+            }
+
+            .main-content {
+                background: white;
+                color: black;
+            }
+
+            .template-btn {
+                background: white !important;
+                color: black !important;
+                border: 2px solid black;
+            }
+
+            .footer {
+                background: white !important;
+                color: black !important;
+                box-shadow: none;
             }
         }
     </style>
