@@ -83,12 +83,41 @@
     /* Template Variants */
     .paper.template-classic .name{font-family:Playfair Display,serif; font-weight:700; font-size:30px}
     .paper.template-classic .role{color:#475569}
+    .paper.template-classic .sect-title{color:#64748b; font-weight:700}
+    
     .paper.template-modern{border:1px solid #e6ecff}
     .paper.template-modern .head{border-bottom:0; background:linear-gradient(135deg,#eef2ff 0%,#f5f7ff 60%, #ffffff 100%); padding:16px; border-radius:14px}
     .paper.template-modern .name{font-size:26px}
+    
     .paper.template-elegant{border:1px solid #eae6df}
-    .paper.template-elegant .name{letter-spacing:.5px}
+    .paper.template-elegant .name{letter-spacing:.5px; font-family:Playfair Display,serif}
     .paper.template-elegant .sect-title{color:#8b7355}
+    .paper.template-elegant .head{border-bottom:2px solid #d4af37}
+    
+    .paper.template-minimal{border:none; box-shadow:0 0 0 1px #e5e7eb}
+    .paper.template-minimal .head{border-bottom:1px solid #f3f4f6; padding-bottom:12px}
+    .paper.template-minimal .name{font-size:24px; font-weight:600; color:#111827}
+    .paper.template-minimal .role{color:#6b7280}
+    .paper.template-minimal .sect-title{color:#374151; font-size:11px; letter-spacing:.1em}
+    .paper.template-minimal .cv-grid{gap:20px}
+    
+    .paper.template-creative{border:2px solid #f59e0b; background:linear-gradient(135deg,#fef3c7 0%,#ffffff 100%)}
+    .paper.template-creative .head{background:linear-gradient(135deg,#fbbf24 0%,#f59e0b 100%); color:white; padding:20px; border-radius:12px; margin-bottom:20px}
+    .paper.template-creative .name{color:white; font-size:28px; font-weight:800}
+    .paper.template-creative .role{color:#fef3c7}
+    .paper.template-creative .sect-title{color:#92400e; font-weight:700}
+    .paper.template-creative .contact small{color:#451a03}
+    .paper.template-creative .chip{background:#fef3c7; color:#92400e; border:1px solid #f59e0b}
+    
+    .paper.template-professional{border:1px solid #1f2937; background:#ffffff}
+    .paper.template-professional .head{border-bottom:3px solid #1f2937; padding-bottom:16px}
+    .paper.template-professional .name{color:#1f2937; font-size:28px; font-weight:700; letter-spacing:-0.5px}
+    .paper.template-professional .role{color:#4b5563; font-weight:600}
+    .paper.template-professional .sect-title{color:#1f2937; font-weight:800; font-size:13px; letter-spacing:.2em}
+    .paper.template-professional .contact small{color:#374151; font-weight:500}
+    .paper.template-professional .chip{background:#f3f4f6; color:#1f2937; border:1px solid #d1d5db; font-weight:600}
+    .paper.template-professional .entry .top{color:#1f2937; font-weight:700}
+    .paper.template-professional .entry .sub{color:#4b5563; font-weight:600}
 
     /* Responsive Design */
     
@@ -616,6 +645,9 @@
             <option value="template-classic">Classic</option>
             <option value="template-modern" selected>Modern</option>
             <option value="template-elegant">Elegant</option>
+            <option value="template-minimal">Minimal</option>
+            <option value="template-creative">Creative</option>
+            <option value="template-professional">Professional</option>
           </select>
           <button id="btn_export" class="primary" title="Export PDF">Export PDF</button>
           <button id="btn_save" title="Save to this browser">Save</button>

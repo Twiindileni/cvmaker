@@ -789,25 +789,56 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-        
+
         .color-option {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
             transition: var(--transition);
-            border: 2px solid white;
-            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
         }
-        
+
         .color-option:hover {
-            transform: scale(1.2);
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
         }
-        
+
         .color-option.active {
-            border: 2px solid var(--dark);
+            border: 3px solid var(--dark);
             transform: scale(1.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .color-option.active::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+        }
+
+        /* Theme Names */
+        .theme-names {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .theme-name {
+            font-size: 11px;
+            text-align: center;
+            color: var(--gray);
+            font-weight: 500;
         }
         
         .template-selector {
@@ -987,11 +1018,32 @@
             <div class="form-group">
                 <label><i class="fas fa-paint-brush"></i> Choose Color Scheme</label>
                 <div class="color-picker">
-                    <div class="color-option active" style="background-color: #4361ee;" data-color="#4361ee"></div>
-                    <div class="color-option" style="background-color: #3a0ca3;" data-color="#3a0ca3"></div>
-                    <div class="color-option" style="background-color: #f72585;" data-color="#f72585"></div>
-                    <div class="color-option" style="background-color: #4cc9f0;" data-color="#4cc9f0"></div>
-                    <div class="color-option" style="background-color: #560bad;" data-color="#560bad"></div>
+                    <div class="color-option active" style="background: linear-gradient(135deg, #4361ee, #3a0ca3);" data-color="#4361ee" data-secondary="#3a0ca3"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #f72585, #b5179e);" data-color="#f72585" data-secondary="#b5179e"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #4cc9f0, #4895ef);" data-color="#4cc9f0" data-secondary="#4895ef"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #560bad, #3a0ca3);" data-color="#560bad" data-secondary="#3a0ca3"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #06ffa5, #00d4aa);" data-color="#06ffa5" data-secondary="#00d4aa"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #ff6b35, #f7931e);" data-color="#ff6b35" data-secondary="#f7931e"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);" data-color="#8b5cf6" data-secondary="#7c3aed"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #10b981, #059669);" data-color="#10b981" data-secondary="#059669"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #ef4444, #dc2626);" data-color="#ef4444" data-secondary="#dc2626"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #f59e0b, #d97706);" data-color="#f59e0b" data-secondary="#d97706"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #6366f1, #4f46e5);" data-color="#6366f1" data-secondary="#4f46e5"></div>
+                    <div class="color-option" style="background: linear-gradient(135deg, #ec4899, #db2777);" data-color="#ec4899" data-secondary="#db2777"></div>
+                </div>
+                <div class="theme-names">
+                    <div class="theme-name">Ocean Blue</div>
+                    <div class="theme-name">Pink Rose</div>
+                    <div class="theme-name">Sky Blue</div>
+                    <div class="theme-name">Deep Purple</div>
+                    <div class="theme-name">Mint Green</div>
+                    <div class="theme-name">Sunset Orange</div>
+                    <div class="theme-name">Lavender</div>
+                    <div class="theme-name">Forest Green</div>
+                    <div class="theme-name">Cherry Red</div>
+                    <div class="theme-name">Golden Yellow</div>
+                    <div class="theme-name">Indigo</div>
+                    <div class="theme-name">Magenta</div>
                 </div>
             </div>
             
@@ -1167,7 +1219,25 @@
                     this.classList.add('active');
                     
                     const newColor = this.getAttribute('data-color');
+                    const secondaryColor = this.getAttribute('data-secondary');
+                    
+                    // Update CSS variables
                     document.documentElement.style.setProperty('--primary', newColor);
+                    if (secondaryColor) {
+                        document.documentElement.style.setProperty('--secondary', secondaryColor);
+                    }
+                    
+                    // Update gradient backgrounds
+                    const gradientElements = document.querySelectorAll('.btn-primary, .generate-btn, .add-btn');
+                    gradientElements.forEach(el => {
+                        el.style.background = `linear-gradient(to right, ${newColor}, ${secondaryColor || newColor})`;
+                    });
+                    
+                    // Update skill chips
+                    const skillChips = document.querySelectorAll('.skill');
+                    skillChips.forEach(chip => {
+                        chip.style.background = `linear-gradient(to right, ${newColor}, ${secondaryColor || newColor})`;
+                    });
                 });
             });
             
