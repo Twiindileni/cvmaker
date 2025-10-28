@@ -101,6 +101,26 @@
         }
         .glow-inner img{width:100%; height:100%; object-fit:contain; display:block; border-radius:12px; background:transparent}
 
+        /* Technology background layers */
+        .tech-bg{position:absolute; inset:0; z-index:0; pointer-events:none}
+        /* animated fine grid */
+        .tech-grid{position:absolute; inset:-80px 0 0; opacity:.8; background-image:linear-gradient(rgba(15,23,42,.05) 1px, transparent 1px),linear-gradient(90deg, rgba(15,23,42,.05) 1px, transparent 1px); background-size:36px 36px,36px 36px; mask-image:radial-gradient(ellipse at center, black 35%, transparent 70%); animation:gridShift 18s linear infinite}
+        @keyframes gridShift{0%{background-position:0 0,0 0}100%{background-position:360px 360px,360px 360px}}
+        /* flowing circuit lines */
+        .circuit{position:absolute; inset:0; background: repeating-linear-gradient(120deg, transparent 0 22px, rgba(34,197,94,.08) 22px 24px), repeating-linear-gradient(-120deg, transparent 0 22px, rgba(34,197,94,.06) 22px 24px); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 70%); animation:circuitMove 12s ease-in-out infinite}
+        @keyframes circuitMove{0%,100%{background-position:0 0,0 0}50%{background-position:40px -30px,-40px 30px}}
+        /* network nodes */
+        .nodes{position:absolute; inset:0}
+        .node{position:absolute; width:8px; height:8px; border-radius:50%; background: radial-gradient(circle at 30% 30%, #bbf7d0, #22c55e 60%, rgba(34,197,94,0) 70%); box-shadow:0 0 0 3px rgba(34,197,94,.1), 0 0 12px rgba(34,197,94,.6); opacity:.9; animation:twinkle 3.5s ease-in-out infinite}
+        @keyframes twinkle{0%,100%{transform:scale(.9); opacity:.7}50%{transform:scale(1.15); opacity:1}}
+        /* orbits */
+        .orbit{position:absolute; left:50%; top:38%; width:360px; height:360px; border:1px dashed rgba(34,197,94,.18); border-radius:50%; transform:translate(-50%,-50%); animation:spin 24s linear infinite}
+        .orbit.small{width:240px; height:240px; animation-duration:18s}
+        @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+        .particle{position:absolute; width:6px; height:6px; border-radius:50%; background:#22c55e; box-shadow:0 0 10px rgba(34,197,94,.6);}
+        .orbit .particle{top:-3px; left:50%; transform:translateX(-50%)}
+        .orbit.small .particle{top:auto; bottom:-3px}
+
         @keyframes pulse {
             0%,100% { opacity: .6; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.05); }
@@ -991,6 +1011,22 @@
     </nav>
 
     <section class="hero">
+        <div class="tech-bg">
+            <div class="tech-grid"></div>
+            <div class="circuit"></div>
+            <div class="nodes">
+                <span class="node" style="left:22%; top:26%; animation-delay:.2s"></span>
+                <span class="node" style="left:32%; top:54%; animation-delay:1.1s"></span>
+                <span class="node" style="left:48%; top:18%; animation-delay:.6s"></span>
+                <span class="node" style="left:58%; top:46%; animation-delay:1.8s"></span>
+                <span class="node" style="left:68%; top:30%; animation-delay:.9s"></span>
+                <span class="node" style="left:40%; top:70%; animation-delay:1.4s"></span>
+                <span class="node" style="left:62%; top:66%; animation-delay:.4s"></span>
+                <span class="node" style="left:28%; top:68%; animation-delay:2.0s"></span>
+            </div>
+            <div class="orbit"><span class="particle"></span></div>
+            <div class="orbit small"><span class="particle"></span></div>
+        </div>
         <div class="glow">
             <div class="glow-inner">
                 <img src="logo.jpg" alt="Logo" style="width:100%;height:100%;object-fit:contain;display:block;" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='LOGO';">
