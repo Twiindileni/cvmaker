@@ -3,22 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Maker - Professional Resume Templates</title>
+    <title>CV Maker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #f72585;
-            --success: #4cc9f0;
-            --dark: #1a1a2e;
-            --light: #f8f9fa;
-            --white: #ffffff;
-            --gray: #6c757d;
-            --shadow: rgba(0, 0, 0, 0.1);
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #4cc9f0 0%, #4895ef 100%);
+            --bg: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --ring: rgba(52, 211, 153, 0.35);
+            --brand: #22c55e;
+            --brand-dark: #16a34a;
         }
 
         * {
@@ -29,36 +24,76 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--bg);
             overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* Animated Background */
-        .animated-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
+        /* Minimal top nav */
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .resume-element {
-            position: absolute;
-            opacity: 0.1;
-            animation: floatResume 20s infinite linear;
+        .nav-left { display: flex; align-items: center; gap: 10px; }
+
+        .logo-mark {
+            width: 28px; height: 28px; border-radius: 8px;
+            background: radial-gradient(closest-side, rgba(34,197,94,0.25), rgba(34,197,94,0.05));
+            border: 1px solid rgba(34,197,94,0.35);
+            display: grid; place-items: center; color: var(--brand);
+            font-weight: 800; font-size: 14px;
         }
 
-        .resume-element:nth-child(1) {
-            top: 10%;
-            left: 5%;
-            animation-delay: 0s;
-            font-size: 3rem;
-            color: var(--primary);
+        .nav-links { display: flex; gap: 26px; align-items: center; }
+        .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; }
+
+        .login-btn {
+            padding: 8px 14px; border-radius: 10px; background: #f8fafc; color: #0f172a;
+            border: 1px solid #e2e8f0; text-decoration: none; font-weight: 600;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            max-width: 1000px;
+            margin: 60px auto 40px;
+            padding: 40px 20px 60px;
+            text-align: center;
+        }
+
+        /* Soft grid background */
+        .hero::before {
+            content: '';
+            position: absolute; inset: -60px 0 0; z-index: 0;
+            background-image: linear-gradient(rgba(15,23,42,0.04) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(15,23,42,0.04) 1px, transparent 1px);
+            background-size: 40px 40px, 40px 40px;
+            mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+        }
+
+        /* Radial glow */
+        .glow {
+            position: relative; width: 220px; height: 220px; margin: 0 auto 26px;
+            border-radius: 28px;
+            display: grid; place-items: center;
+        }
+        .glow::before {
+            content: '';
+            position: absolute; inset: -40px; border-radius: 40px; z-index: 0;
+            background: radial-gradient(closest-side, rgba(34,197,94,0.35), transparent 70%);
+            filter: blur(10px);
+        }
+        .glow-inner {
+            position: relative; z-index: 1; width: 64px; height: 64px; border-radius: 16px;
+            background: #0b1220; border: 1px solid rgba(148,163,184,0.25);
+            display: grid; place-items: center; color: var(--brand); font-weight: 800;
         }
 
         .resume-element:nth-child(2) {
@@ -221,37 +256,16 @@
             padding: 2rem;
         }
 
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
+        .hero h1 { font-size: 48px; line-height: 1.1; letter-spacing: -0.02em; margin: 0 auto 16px; max-width: 900px; }
+        .hero h1 strong { font-weight: 800; }
+        .subtext { color: var(--muted); max-width: 680px; margin: 0 auto; }
 
-        .logo {
-            font-size: 3rem;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
+        /* Hidden old template cards on landing (kept for links below hero) */
+        .template-buttons { display: none; }
 
-        .tagline {
-            font-size: 1.3rem;
-            color: var(--gray);
-            font-weight: 400;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Template Buttons */
-        .template-buttons {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 4rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        /* Quick links row like mock */
+        .links-row { display: flex; gap: 18px; justify-content: center; margin-top: 30px; }
+        .link-pill { padding: 10px 14px; border-radius: 999px; font-weight: 600; text-decoration: none; color: #0f172a; background: #f8fafc; border: 1px solid #e2e8f0; }
 
         .template-btn {
             padding: 1.5rem 3rem;
@@ -342,20 +356,8 @@
             text-align: center;
         }
 
-        /* Footer */
-        .footer {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.95) 100%);
-            backdrop-filter: blur(20px);
-            padding: 3rem 2rem;
-            border-radius: 25px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            max-width: 700px;
-            width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
+        /* Footer (keep minimal) */
+        .footer { text-align: center; padding: 40px 20px; color: var(--muted); }
 
         .footer::before {
             content: '';
@@ -934,87 +936,37 @@
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="animated-background">
-        <div class="resume-element"><i class="fas fa-file-alt"></i></div>
-        <div class="resume-element"><i class="fas fa-user-tie"></i></div>
-        <div class="resume-element"><i class="fas fa-briefcase"></i></div>
-        <div class="resume-element"><i class="fas fa-graduation-cap"></i></div>
-        <div class="resume-element"><i class="fas fa-star"></i></div>
-        <div class="resume-element"><i class="fas fa-certificate"></i></div>
-        <div class="resume-element"><i class="fas fa-trophy"></i></div>
-        <div class="resume-element"><i class="fas fa-code"></i></div>
-        <div class="resume-element"><i class="fas fa-palette"></i></div>
-        <div class="resume-element"><i class="fas fa-download"></i></div>
-        
-        <div class="floating-icon"></div>
-        <div class="floating-icon"></div>
-        <div class="floating-icon"></div>
-        <div class="floating-icon"></div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Header -->
-        <header class="header">
-            <h1 class="logo">
-                <i class="fas fa-file-alt"></i> CV Maker
-            </h1>
-            <p class="tagline">Create professional resumes in minutes with our beautiful templates</p>
-        </header>
-
-        <!-- Template Buttons -->
-        <div class="template-buttons">
-            <a href="main.html" class="template-btn btn-cv1">
-                <i class="fas fa-palette btn-icon"></i>
-                <div class="btn-title">CV1 Template</div>
-                <div class="btn-description">Elegant design with modern gradients<br>Perfect for tech professionals</div>
-            </a>
-            
-            <a href="CV2/main.html" class="template-btn btn-cv2">
-                <i class="fas fa-moon btn-icon"></i>
-                <div class="btn-title">CV2 Template</div>
-                <div class="btn-description">Modern dark theme<br>Ideal for designers & developers</div>
-            </a>
-            
-            <a href="CV3/main.html" class="template-btn btn-cv3">
-                <i class="fas fa-user-tie btn-icon"></i>
-                <div class="btn-title">CV3 Template</div>
-                <div class="btn-description">Professional sidebar layout<br>Perfect for corporate roles</div>
-            </a>
-            
-            <a href="CV4/main.html" class="template-btn btn-cv4">
-                <i class="fas fa-timeline btn-icon"></i>
-                <div class="btn-title">CV4 Template</div>
-                <div class="btn-description">Creative timeline design<br>Ideal for creative professionals</div>
-            </a>
+    <nav class="nav">
+        <div class="nav-left">
+            <div class="logo-mark">LOGO</div>
+            <div class="nav-links">
+                <a href="#">Templates</a>
+                <a href="#">Community</a>
+                <a href="#">Tools</a>
+                <a href="#">Pricing</a>
+            </div>
         </div>
+        <a class="login-btn" href="#">Login</a>
+    </nav>
+
+    <section class="hero">
+        <div class="glow">
+            <div class="glow-inner">LOGO</div>
+        </div>
+        <h1>Transform Text to Design in Minutes, <strong>Powered by AI</strong></h1>
+        <p class="subtext">Generate beautiful and editable web designs from a simple text description. It empowers you to design faster than ever.</p>
+
+        <div class="links-row" style="margin-top: 26px;">
+            <a class="link-pill" href="main.html">CV1 Template</a>
+            <a class="link-pill" href="CV2/main.html">CV2 Template</a>
+            <a class="link-pill" href="CV3/main.html">CV3 Template</a>
+            <a class="link-pill" href="CV4/main.html">CV4 Template</a>
+        </div>
+    </section>
 
         <!-- Footer -->
         <footer class="footer">
-            <h3>Contact Us</h3>
-            <div class="contact-section">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-building"></i>
-                        <span>Purpose Technology</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>0817854573</span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-divider"></div>
-            <div class="footer-links">
-                <a href="main.html">CV1 Template</a>
-                <a href="CV2/main.html">CV2 Template</a>
-                <a href="CV3/main.html">CV3 Template</a>
-                <a href="CV4/main.html">CV4 Template</a>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 <span>Purpose Technology</span>. All rights reserved.</p>
-            </div>
+            <div>&copy; 2024 Purpose Technology. All rights reserved.</div>
         </footer>
     </div>
 
