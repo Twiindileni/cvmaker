@@ -23,19 +23,42 @@
         .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:20px}
         .card{border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 12px 30px rgba(2,6,23,.06);display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease}
         .card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(2,6,23,.1)}
-        .thumb{background:linear-gradient(135deg,#eef2ff,#fff);height:160px;display:grid;place-items:center}
-        .thumb span{font-weight:800;color:#334155}
+        .thumb{background:linear-gradient(135deg,#eef2ff,#fff);height:280px;position:relative;overflow:hidden;cursor:pointer}
+        .thumb iframe{width:100%;height:100%;border:none;transform:scale(0.35);transform-origin:top left;pointer-events:none}
+        .thumb-overlay{position:absolute;inset:0;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;z-index:1}
+        .thumb:hover .thumb-overlay{opacity:1}
+        .thumb-overlay span{font-weight:700;color:#0f172a;font-size:16px;display:flex;align-items:center;gap:8px}
         .card .body{padding:14px}
         .card h3{font-size:18px;margin-bottom:6px}
         .card p{font-size:14px;color:var(--muted);margin-bottom:12px}
         .actions{display:flex;gap:10px;margin-top:auto}
-        .btn{padding:10px 12px;border-radius:10px;text-decoration:none;font-weight:600;border:1px solid #e2e8f0;color:#0f172a;background:#f8fafc}
+        .btn{padding:10px 12px;border-radius:10px;text-decoration:none;font-weight:600;border:1px solid #e2e8f0;color:#0f172a;background:#f8fafc;transition:all 0.3s ease}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
         .btn.primary{background:linear-gradient(135deg,#667eea,#764ba2);border:0;color:#fff}
         .btn.primary:hover{box-shadow:0 10px 24px rgba(102,126,234,.35)}
         .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
         .tag{font-size:12px;padding:4px 8px;border-radius:999px;background:#f1f5f9;color:#0f172a;border:1px solid #e2e8f0}
-        @media(max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:640px){.grid{grid-template-columns:1fr}.nav-links{display:none}}
+        
+        /* Preview Modal */
+        .preview-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+        .preview-modal.active{display:flex}
+        .preview-content{background:#fff;border-radius:16px;width:100%;max-width:900px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+        .preview-header{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid #e2e8f0}
+        .preview-header h3{font-size:20px;font-weight:700;color:#0f172a}
+        .close-btn{width:36px;height:36px;border-radius:8px;border:none;background:#f1f5f9;color:#0f172a;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;font-size:20px}
+        .close-btn:hover{background:#e2e8f0;transform:rotate(90deg)}
+        .preview-iframe{width:100%;height:70vh;border:none;border-radius:0 0 16px 16px}
+        @media(max-width:1024px){
+            .grid{grid-template-columns:repeat(2,1fr)}
+            .thumb{height:240px}
+        }
+        @media(max-width:640px){
+            .grid{grid-template-columns:1fr}
+            .nav-links{display:none}
+            .thumb{height:200px}
+            .preview-content{max-width:100%;max-height:95vh}
+            .preview-iframe{height:60vh}
+        }
         footer{display:flex;justify-content:center;color:#64748b;padding:30px 20px}
     </style>
 </head>
@@ -60,57 +83,124 @@
         </div>
         <section class="grid">
             <article class="card">
-                <div class="thumb"><span>CV1</span></div>
+                <div class="thumb" onclick="openPreview('CV1 – Classic & Professional', 'main.html')">
+                    <iframe src="main.html" scrolling="no"></iframe>
+                    <div class="thumb-overlay">
+                        <span><i class="fas fa-eye"></i> Click to Preview</span>
+                    </div>
+                </div>
                 <div class="body">
                     <h3>CV1 – Classic & Professional</h3>
                     <div class="tags"><span class="tag">12 Colors</span><span class="tag">Clean</span></div>
                     <p>Elegant A4 layout with modern gradients and skill chips.</p>
                     <div class="actions">
-                        <a class="btn" href="main.html">Preview</a>
+                        <a class="btn" href="main.html" target="_blank">Preview</a>
                         <a class="btn primary" href="main.html">Use Template</a>
                     </div>
                 </div>
             </article>
             <article class="card">
-                <div class="thumb"><span>CV2</span></div>
+                <div class="thumb" onclick="openPreview('CV2 – Modern & Sleek', 'CV2/main.html')">
+                    <iframe src="CV2/main.html" scrolling="no"></iframe>
+                    <div class="thumb-overlay">
+                        <span><i class="fas fa-eye"></i> Click to Preview</span>
+                    </div>
+                </div>
                 <div class="body">
                     <h3>CV2 – Modern & Sleek</h3>
                     <div class="tags"><span class="tag">Dark</span><span class="tag">PDF Export</span></div>
                     <p>Contemporary design with sharp typography and dark theme.</p>
                     <div class="actions">
-                        <a class="btn" href="CV2/main.html">Preview</a>
+                        <a class="btn" href="CV2/main.html" target="_blank">Preview</a>
                         <a class="btn primary" href="CV2/main.html">Use Template</a>
                     </div>
                 </div>
             </article>
             <article class="card">
-                <div class="thumb"><span>CV3</span></div>
+                <div class="thumb" onclick="openPreview('CV3 – Sidebar Professional', 'CV3/main.html')">
+                    <iframe src="CV3/main.html" scrolling="no"></iframe>
+                    <div class="thumb-overlay">
+                        <span><i class="fas fa-eye"></i> Click to Preview</span>
+                    </div>
+                </div>
                 <div class="body">
                     <h3>CV3 – Sidebar Professional</h3>
                     <div class="tags"><span class="tag">Sidebar</span><span class="tag">6 Colors</span></div>
                     <p>Modern sidebar layout with focused content sections.</p>
                     <div class="actions">
-                        <a class="btn" href="CV3/main.html">Preview</a>
+                        <a class="btn" href="CV3/main.html" target="_blank">Preview</a>
                         <a class="btn primary" href="CV3/main.html">Use Template</a>
                     </div>
                 </div>
             </article>
             <article class="card">
-                <div class="thumb"><span>CV4</span></div>
+                <div class="thumb" onclick="openPreview('CV4 – Creative Timeline', 'CV4/main.html')">
+                    <iframe src="CV4/main.html" scrolling="no"></iframe>
+                    <div class="thumb-overlay">
+                        <span><i class="fas fa-eye"></i> Click to Preview</span>
+                    </div>
+                </div>
                 <div class="body">
                     <h3>CV4 – Creative Timeline</h3>
                     <div class="tags"><span class="tag">Timeline</span><span class="tag">Showcase</span></div>
                     <p>Visual timeline style with beautiful section accents.</p>
                     <div class="actions">
-                        <a class="btn" href="CV4/main.html">Preview</a>
+                        <a class="btn" href="CV4/main.html" target="_blank">Preview</a>
                         <a class="btn primary" href="CV4/main.html">Use Template</a>
                     </div>
                 </div>
             </article>
         </section>
+        
+        <!-- Preview Modal -->
+        <div class="preview-modal" id="previewModal">
+            <div class="preview-content">
+                <div class="preview-header">
+                    <h3 id="previewTitle">Template Preview</h3>
+                    <button class="close-btn" onclick="closePreview()">&times;</button>
+                </div>
+                <iframe id="previewFrame" class="preview-iframe" scrolling="auto"></iframe>
+            </div>
+        </div>
     </main>
 
     <footer>© 2024 Purpose Technology. All rights reserved.</footer>
+    
+    <script>
+        function openPreview(title, url) {
+            const modal = document.getElementById('previewModal');
+            const frame = document.getElementById('previewFrame');
+            const titleEl = document.getElementById('previewTitle');
+            
+            titleEl.textContent = title;
+            frame.src = url;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closePreview() {
+            const modal = document.getElementById('previewModal');
+            const frame = document.getElementById('previewFrame');
+            
+            modal.classList.remove('active');
+            frame.src = '';
+            document.body.style.overflow = '';
+        }
+        
+        // Close modal on backdrop click
+        document.getElementById('previewModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePreview();
+            }
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePreview();
+            }
+        });
+    </script>
 </body>
 </html>
 
