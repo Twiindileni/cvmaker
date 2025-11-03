@@ -679,18 +679,58 @@
             text-align: center;
         }
 
-        /* Premium Footer */
+        /* Redesigned Premium Footer */
         .footer { 
-            text-align: center; 
-            padding: 80px 32px 60px; 
-            color: var(--text-secondary); 
             position: relative;
             z-index: 10;
-            background: linear-gradient(to bottom, transparent, rgba(16, 185, 129, 0.02));
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #e2e8f0;
+            padding: 60px 32px 32px;
+            margin-top: 80px;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--brand), var(--accent), var(--brand));
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
         }
         .footer-container {
             max-width: 1200px;
             margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        .footer-brand-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .footer-logo-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: var(--surface);
+            padding: 8px;
         }
         .footer-brand {
             font-size: 24px;
@@ -699,61 +739,98 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 16px;
             font-family: 'Sora', 'Inter', sans-serif;
         }
         .footer-tagline {
-            color: var(--muted);
+            color: #94a3b8;
             font-size: 15px;
-            margin-bottom: 32px;
-            font-weight: 500;
+            line-height: 1.6;
+            font-weight: 400;
         }
-        .footer-contact {
+        .footer-social {
             display: flex;
-            justify-content: center;
-            gap: 32px;
-            flex-wrap: wrap;
-            margin-bottom: 32px;
+            gap: 12px;
+            margin-top: 8px;
         }
-        .contact-item {
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            display: grid;
+            place-items: center;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .social-link:hover {
+            background: var(--brand);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+        }
+        .footer-column h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            font-family: 'Sora', 'Inter', sans-serif;
+        }
+        .footer-links {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text);
+            flex-direction: column;
+            gap: 12px;
+        }
+        .footer-link {
+            color: #94a3b8;
             text-decoration: none;
             font-size: 15px;
-            font-weight: 600;
-            padding: 12px 20px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-sm);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .contact-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--brand);
+        .footer-link:hover {
             color: var(--brand);
+            transform: translateX(4px);
         }
-        .contact-item i {
-            font-size: 16px;
-            opacity: 0.8;
+        .footer-link i {
+            font-size: 14px;
+            opacity: 0.6;
         }
-        .footer-divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--border) 20%, var(--border) 80%, transparent);
-            margin: 32px auto;
-            max-width: 600px;
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
         }
         .footer-copyright {
-            color: var(--muted);
+            color: #94a3b8;
             font-size: 14px;
             font-weight: 500;
         }
         .footer-copyright strong {
             color: var(--brand);
             font-weight: 700;
+        }
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+        .footer-legal a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .footer-legal a:hover {
+            color: var(--brand);
         }
 
         /* Enhanced Floating Icons */
@@ -878,14 +955,14 @@
             }
             .f1, .f2 { display: none; }
             .footer {
-                padding: 60px 20px 48px;
+                padding: 48px 20px 32px;
             }
-            .footer-contact {
-                gap: 16px;
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
             }
-            .contact-item {
-                font-size: 14px;
-                padding: 10px 16px;
+            .footer-brand-section {
+                grid-column: 1 / -1;
             }
         }
         
@@ -927,7 +1004,11 @@
             }
             .f3, .f4 { display: none; }
             .footer {
-                padding: 48px 16px 40px;
+                padding: 40px 16px 32px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
             }
             .footer-brand {
                 font-size: 20px;
@@ -935,15 +1016,13 @@
             .footer-tagline {
                 font-size: 14px;
             }
-            .footer-contact {
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-legal {
                 flex-direction: column;
                 gap: 12px;
-                align-items: stretch;
-            }
-            .contact-item {
-                font-size: 14px;
-                padding: 12px 16px;
-                justify-content: center;
             }
             .footer-copyright {
                 font-size: 13px;
@@ -1546,9 +1625,9 @@
             </a>
             <div class="nav-links">
                 <a href="templates.html">Templates</a>
-                <a href="#">Community</a>
-                <a href="#">Tools</a>
-                <a href="#">Pricing</a>
+                <a href="community.html">Community</a>
+                <a href="tools.html">Tools</a>
+                <a href="pricing.html">Pricing</a>
             </div>
         </div>
         <a class="login-btn" href="#">Login</a>
@@ -1604,28 +1683,68 @@
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-container">
-                <div class="footer-brand">Purpose Technology</div>
-                <div class="footer-tagline">Building professional resumes, one template at a time</div>
-                
-                <div class="footer-contact">
-                    <a href="tel:+264817854573" class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+264 81 785 4573</span>
-                    </a>
-                    <a href="mailto:cleothomas8@gmail.com" class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>cleothomas8@gmail.com</span>
-                    </a>
-                    <a href="https://www.purposetech.shop" target="_blank" rel="noopener noreferrer" class="contact-item">
-                        <i class="fas fa-globe"></i>
-                        <span>www.purposetech.shop</span>
-                    </a>
+                <div class="footer-grid">
+                    <div class="footer-brand-section">
+                        <div class="footer-logo">
+                            <img src="logo.jpg" alt="Purpose Technology" class="footer-logo-img" onerror="this.style.display='none';">
+                            <div class="footer-brand">Purpose Technology</div>
+                        </div>
+                        <div class="footer-tagline">
+                            Empowering professionals with AI-powered resume builders. Create stunning CVs that get you noticed and land your dream job.
+                        </div>
+                        <div class="footer-social">
+                            <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <div class="footer-links">
+                            <a href="templates.html" class="footer-link">Templates</a>
+                            <a href="community.html" class="footer-link">Community</a>
+                            <a href="tools.html" class="footer-link">Tools</a>
+                            <a href="pricing.html" class="footer-link">Pricing</a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <div class="footer-links">
+                            <a href="#" class="footer-link">Blog</a>
+                            <a href="#" class="footer-link">Help Center</a>
+                            <a href="#" class="footer-link">Tutorials</a>
+                            <a href="#" class="footer-link">FAQs</a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Contact</h4>
+                        <div class="footer-links">
+                            <a href="tel:+264817854573" class="footer-link">
+                                <i class="fas fa-phone"></i> +264 81 785 4573
+                            </a>
+                            <a href="mailto:cleothomas8@gmail.com" class="footer-link">
+                                <i class="fas fa-envelope"></i> cleothomas8@gmail.com
+                            </a>
+                            <a href="https://www.purposetech.shop" target="_blank" rel="noopener noreferrer" class="footer-link">
+                                <i class="fas fa-globe"></i> purposetech.shop
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="footer-divider"></div>
-                
-                <div class="footer-copyright">
-                    &copy; 2024 <strong>Purpose Technology</strong>. All rights reserved.
+                <div class="footer-bottom">
+                    <div class="footer-copyright">
+                        &copy; 2024 <strong>Purpose Technology</strong>. All rights reserved.
+                    </div>
+                    <div class="footer-legal">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
                 </div>
             </div>
         </footer>
