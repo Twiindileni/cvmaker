@@ -39,6 +39,16 @@
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+        
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         /* Premium Navigation */
@@ -683,11 +693,16 @@
         .footer { 
             position: relative;
             z-index: 10;
+            width: 100%;
+            min-width: 100%;
             background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
             color: #e2e8f0;
-            padding: 60px 32px 32px;
+            padding: 60px 0 32px;
             margin-top: 80px;
-            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            box-sizing: border-box;
+            clear: both;
         }
         .footer::before {
             content: '';
@@ -707,6 +722,9 @@
         .footer-container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 32px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .footer-grid {
             display: grid;
@@ -956,8 +974,12 @@
             }
             .f1, .f2 { display: none; }
             .footer {
-                padding: 48px 20px 32px;
+                padding: 48px 0 32px;
                 width: 100%;
+                min-width: 100%;
+            }
+            .footer-container {
+                padding: 0 20px;
             }
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
@@ -1006,8 +1028,12 @@
             }
             .f3, .f4 { display: none; }
             .footer {
-                padding: 40px 16px 32px;
+                padding: 40px 0 32px;
                 width: 100%;
+                min-width: 100%;
+            }
+            .footer-container {
+                padding: 0 16px;
             }
             .footer-grid {
                 grid-template-columns: 1fr;
@@ -1683,8 +1709,8 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+        <!-- Footer -->
+        <footer class="footer">
             <div class="footer-container">
                 <div class="footer-grid">
                     <div class="footer-brand-section">
@@ -1750,7 +1776,8 @@
                     </div>
                 </div>
             </div>
-    </footer>
+        </footer>
+    </div>
 
     <script>
         // Add some interactive effects
