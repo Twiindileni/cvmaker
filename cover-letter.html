@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter Generator - CV Maker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --secondary: #764ba2;
+            --accent: #10b981;
+            --text: #0f172a;
+            --text-light: #64748b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .back-btn {
+            padding: 8px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: var(--surface);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Template & Tone Selection */
+        .template-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .template-option {
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--surface);
+        }
+
+        .template-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .template-option.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        }
+
+        .template-option i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .template-option span {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .tone-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .tone-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .tone-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .tone-btn.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .btn-success {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        /* Preview Section */
+        .preview-section {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            min-height: 800px;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .preview-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .preview-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Cover Letter Templates */
+        .cover-letter {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px;
+            background: white;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            min-height: 297mm;
+            position: relative;
+        }
+
+        /* Professional Template */
+        .cover-letter.professional {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cover-letter.professional .header {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .cover-letter.professional .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .cover-letter.professional .contact-info {
+            display: flex;
+            gap: 24px;
+            font-size: 13px;
+            color: var(--text-light);
+            flex-wrap: wrap;
+        }
+
+        .cover-letter.professional .date {
+            margin-bottom: 30px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .cover-letter.professional .recipient {
+            margin-bottom: 30px;
+        }
+
+        .cover-letter.professional .recipient strong {
+            font-weight: 600;
+        }
+
+        .cover-letter.professional .body {
+            line-height: 1.8;
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .cover-letter.professional .body p {
+            margin-bottom: 16px;
+        }
+
+        .cover-letter.professional .signature {
+            margin-top: 40px;
+        }
+
+        /* Modern Template */
+        .cover-letter.modern {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .cover-letter.modern .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px;
+        }
+
+        .cover-letter.modern .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .cover-letter.modern .header .contact-info {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .cover-letter.modern .date {
+            text-align: right;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .cover-letter.modern .recipient {
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .cover-letter.modern .body {
+            line-height: 1.8;
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .cover-letter.modern .body p {
+            margin-bottom: 16px;
+        }
+
+        .cover-letter.modern .signature {
+            margin-top: 50px;
+            text-align: right;
+        }
+
+        /* Creative Template */
+        .cover-letter.creative {
+            font-family: 'Playfair Display', serif;
+            background: white;
+            border: 3px solid var(--primary);
+        }
+
+        .cover-letter.creative .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .cover-letter.creative .header::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .cover-letter.creative .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .cover-letter.creative .header .contact-info {
+            font-size: 12px;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .cover-letter.creative .date {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .cover-letter.creative .recipient {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .cover-letter.creative .body {
+            line-height: 2;
+            font-size: 16px;
+            color: var(--text);
+            text-align: justify;
+        }
+
+        .cover-letter.creative .body p {
+            margin-bottom: 20px;
+            text-indent: 30px;
+        }
+
+        .cover-letter.creative .signature {
+            margin-top: 50px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Word Count & Stats */
+        .word-count {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--surface);
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 50;
+        }
+
+        .word-count i {
+            color: var(--accent);
+        }
+
+        /* Loading State */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section {
+                position: static;
+            }
+
+            .template-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 12px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 20px 16px;
+                gap: 24px;
+            }
+
+            .form-section,
+            .preview-section {
+                padding: 24px;
+            }
+
+            .cover-letter {
+                padding: 40px 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .template-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .word-count {
+                bottom: 16px;
+                right: 16px;
+                font-size: 12px;
+                padding: 10px 16px;
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="logo.jpg" alt="Logo" onerror="this.textContent='CV';">
+                </a>
+                <div class="nav-links">
+                    <a href="templates.html">Templates</a>
+                    <a href="cover-letter.html" style="color: var(--primary);">Cover Letter</a>
+                    <a href="community.html">Community</a>
+                </div>
+            </div>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <h2 class="section-title">Cover Letter Generator</h2>
+            <p class="section-subtitle">Fill in your details and let AI create a perfect cover letter for you</p>
+
+            <!-- Template Selection -->
+            <div class="form-group">
+                <label>Choose Template</label>
+                <div class="template-selector">
+                    <div class="template-option active" data-template="professional">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Professional</span>
+                    </div>
+                    <div class="template-option" data-template="modern">
+                        <i class="fas fa-rocket"></i>
+                        <span>Modern</span>
+                    </div>
+                    <div class="template-option" data-template="creative">
+                        <i class="fas fa-palette"></i>
+                        <span>Creative</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tone Selection -->
+            <div class="form-group">
+                <label>Writing Tone</label>
+                <div class="tone-selector">
+                    <button class="tone-btn active" data-tone="professional">Professional</button>
+                    <button class="tone-btn" data-tone="friendly">Friendly</button>
+                    <button class="tone-btn" data-tone="formal">Formal</button>
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="form-group">
+                <label>Your Full Name</label>
+                <input type="text" id="yourName" placeholder="Johaness Tomas">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Your Email</label>
+                    <input type="email" id="yourEmail" placeholder="johaness.tomas@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Your Phone</label>
+                    <input type="tel" id="yourPhone" placeholder="+264 81 234 5678">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Your Address</label>
+                <input type="text" id="yourAddress" placeholder="Windhoek, Namibia">
+            </div>
+
+            <!-- Company Information -->
+            <div class="form-group">
+                <label>Company Name</label>
+                <input type="text" id="companyName" placeholder="ABC Corporation">
+            </div>
+
+            <div class="form-group">
+                <label>Hiring Manager Name (Optional)</label>
+                <input type="text" id="hiringManager" placeholder="Mr. John Smith">
+            </div>
+
+            <div class="form-group">
+                <label>Position You're Applying For</label>
+                <input type="text" id="position" placeholder="Software Developer">
+            </div>
+
+            <div class="form-group">
+                <label>Key Skills/Points to Highlight (Optional)</label>
+                <textarea id="keyPoints" placeholder="e.g., 5 years experience, leadership skills, project management"></textarea>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="generateCoverLetter()">
+                    <i class="fas fa-magic"></i> Generate Letter
+                </button>
+                <button class="btn btn-secondary" onclick="clearForm()">
+                    <i class="fas fa-redo"></i> Clear
+                </button>
+            </div>
+
+            <div class="action-buttons" style="margin-top: 12px;">
+                <button class="btn btn-success" onclick="exportPDF()" id="exportBtn" disabled>
+                    <i class="fas fa-file-pdf"></i> Export PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <div class="preview-header">
+                <h3 class="preview-title">Preview</h3>
+                <div class="preview-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-font"></i>
+                        <span id="wordCount">0 words</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="readTime">1 min read</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="previewContent">
+                <div class="empty-state">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Your Cover Letter Preview</h3>
+                    <p>Fill in the form and click "Generate Letter" to see your personalized cover letter</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Word Count -->
+    <div class="word-count" id="wordCountBadge" style="display: none;">
+        <i class="fas fa-check-circle"></i>
+        <span id="wordCountText">0 words</span>
+    </div>
+
+    <script>
+        let currentTemplate = 'professional';
+        let currentTone = 'professional';
+        let generatedContent = '';
+
+        // Template Selection
+        document.querySelectorAll('.template-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.template-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                currentTemplate = this.dataset.template;
+                if (generatedContent) {
+                    generateCoverLetter();
+                }
+            });
+        });
+
+        // Tone Selection
+        document.querySelectorAll('.tone-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentTone = this.dataset.tone;
+                if (generatedContent) {
+                    generateCoverLetter();
+                }
+            });
+        });
+
+        // Generate Cover Letter
+        function generateCoverLetter() {
+            const yourName = document.getElementById('yourName').value.trim();
+            const yourEmail = document.getElementById('yourEmail').value.trim();
+            const yourPhone = document.getElementById('yourPhone').value.trim();
+            const yourAddress = document.getElementById('yourAddress').value.trim();
+            const companyName = document.getElementById('companyName').value.trim();
+            const hiringManager = document.getElementById('hiringManager').value.trim();
+            const position = document.getElementById('position').value.trim();
+            const keyPoints = document.getElementById('keyPoints').value.trim();
+
+            if (!yourName || !companyName || !position) {
+                alert('Please fill in at least: Your Name, Company Name, and Position');
+                return;
+            }
+
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            const greeting = hiringManager ? `Dear ${hiringManager},` : `Dear Hiring Manager,`;
+
+            // Generate body content based on tone
+            let bodyContent = '';
+            
+            if (currentTone === 'professional') {
+                bodyContent = `
+                    <p>I am writing to express my strong interest in the ${position} position at ${companyName}. With a proven track record of excellence and a passion for delivering results, I am confident that I would be a valuable addition to your team.</p>
+                    <p>${keyPoints ? `My qualifications include ${keyPoints}. ` : ''}I am particularly drawn to ${companyName} because of your reputation for innovation and commitment to excellence. I am excited about the opportunity to contribute to your continued success.</p>
+                    <p>I would welcome the opportunity to discuss how my skills and experience align with your needs. Thank you for considering my application. I look forward to hearing from you.</p>
+                `;
+            } else if (currentTone === 'friendly') {
+                bodyContent = `
+                    <p>I'm thrilled to apply for the ${position} role at ${companyName}! I've been following your company's work and I'm genuinely excited about the possibility of joining your team.</p>
+                    <p>${keyPoints ? `What sets me apart is my experience with ${keyPoints}. ` : ''}I love what ${companyName} stands for, and I'm eager to bring my enthusiasm and skills to help you achieve your goals.</p>
+                    <p>I'd love to chat more about how I can contribute to your team. Thanks so much for taking the time to consider my application - I'm really looking forward to connecting!</p>
+                `;
+            } else {
+                bodyContent = `
+                    <p>I am writing to formally apply for the ${position} position at ${companyName}. After careful consideration of the requirements and my professional background, I am confident that my qualifications align perfectly with your needs.</p>
+                    <p>${keyPoints ? `My professional experience encompasses ${keyPoints}. ` : ''}I have long admired ${companyName}'s commitment to excellence and would be honored to contribute to your organization's continued success.</p>
+                    <p>I respectfully request the opportunity to discuss my candidacy further. I am available at your earliest convenience and look forward to your favorable consideration.</p>
+                `;
+            }
+
+            // Build cover letter HTML based on template
+            let coverLetterHTML = '';
+
+            if (currentTemplate === 'professional') {
+                coverLetterHTML = `
+                    <div class="cover-letter professional">
+                        <div class="header">
+                            <h1>${yourName}</h1>
+                            <div class="contact-info">
+                                ${yourEmail ? `<span><i class="fas fa-envelope"></i> ${yourEmail}</span>` : ''}
+                                ${yourPhone ? `<span><i class="fas fa-phone"></i> ${yourPhone}</span>` : ''}
+                                ${yourAddress ? `<span><i class="fas fa-map-marker-alt"></i> ${yourAddress}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="date">${dateStr}</div>
+                        <div class="recipient">
+                            <strong>${hiringManager || 'Hiring Manager'}</strong><br>
+                            ${companyName}
+                        </div>
+                        <div class="body">
+                            <p>${greeting}</p>
+                            ${bodyContent}
+                        </div>
+                        <div class="signature">
+                            <p>Sincerely,</p>
+                            <p><strong>${yourName}</strong></p>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTemplate === 'modern') {
+                coverLetterHTML = `
+                    <div class="cover-letter modern">
+                        <div class="header">
+                            <h1>${yourName}</h1>
+                            <div class="contact-info">
+                                ${yourEmail ? `<span><i class="fas fa-envelope"></i> ${yourEmail}</span>` : ''}
+                                ${yourPhone ? `<span><i class="fas fa-phone"></i> ${yourPhone}</span>` : ''}
+                                ${yourAddress ? `<span><i class="fas fa-map-marker-alt"></i> ${yourAddress}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="date">${dateStr}</div>
+                        <div class="recipient">
+                            <strong>${hiringManager || 'Hiring Manager'}</strong><br>
+                            ${companyName}
+                        </div>
+                        <div class="body">
+                            <p>${greeting}</p>
+                            ${bodyContent}
+                        </div>
+                        <div class="signature">
+                            <p>Best regards,</p>
+                            <p><strong>${yourName}</strong></p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                coverLetterHTML = `
+                    <div class="cover-letter creative">
+                        <div class="header">
+                            <h1>${yourName}</h1>
+                            <div class="contact-info">
+                                ${yourEmail ? `<span>${yourEmail}</span>` : ''}
+                                ${yourPhone ? `<span>${yourPhone}</span>` : ''}
+                                ${yourAddress ? `<span>${yourAddress}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="date">${dateStr}</div>
+                        <div class="recipient">
+                            <p><strong>${hiringManager || 'Hiring Manager'}</strong></p>
+                            <p>${companyName}</p>
+                        </div>
+                        <div class="body">
+                            <p>${greeting}</p>
+                            ${bodyContent}
+                        </div>
+                        <div class="signature">
+                            <p>With warm regards,</p>
+                            <p><strong>${yourName}</strong></p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('previewContent').innerHTML = coverLetterHTML;
+            generatedContent = coverLetterHTML;
+            document.getElementById('exportBtn').disabled = false;
+            updateWordCount();
+        }
+
+        // Update Word Count
+        function updateWordCount() {
+            const text = document.getElementById('previewContent').innerText || '';
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            const wordCount = words.length;
+            const readTime = Math.ceil(wordCount / 200);
+
+            document.getElementById('wordCount').textContent = `${wordCount} words`;
+            document.getElementById('wordCountText').textContent = `${wordCount} words`;
+            document.getElementById('readTime').textContent = `${readTime} min read`;
+
+            if (wordCount > 0) {
+                document.getElementById('wordCountBadge').style.display = 'flex';
+            }
+        }
+
+        // Export PDF
+        async function exportPDF() {
+            const previewContent = document.getElementById('previewContent');
+            const coverLetter = previewContent.querySelector('.cover-letter');
+            
+            if (!coverLetter) {
+                alert('Please generate a cover letter first');
+                return;
+            }
+
+            const exportBtn = document.getElementById('exportBtn');
+            exportBtn.disabled = true;
+            exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+
+            try {
+                const canvas = await html2canvas(coverLetter, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#ffffff'
+                });
+
+                const imgData = canvas.toDataURL('image/png');
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+
+                const imgWidth = 210;
+                const pageHeight = 297;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+
+                const yourName = document.getElementById('yourName').value.trim() || 'CoverLetter';
+                pdf.save(`${yourName}_CoverLetter_${currentTemplate}.pdf`);
+
+                exportBtn.innerHTML = '<i class="fas fa-check"></i> PDF Exported!';
+                setTimeout(() => {
+                    exportBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Export PDF';
+                    exportBtn.disabled = false;
+                }, 2000);
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+                exportBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Export PDF';
+                exportBtn.disabled = false;
+            }
+        }
+
+        // Clear Form
+        function clearForm() {
+            if (confirm('Are you sure you want to clear all fields?')) {
+                document.querySelectorAll('input, textarea').forEach(input => {
+                    if (input.type !== 'button') {
+                        input.value = '';
+                    }
+                });
+                document.getElementById('previewContent').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Your Cover Letter Preview</h3>
+                        <p>Fill in the form and click "Generate Letter" to see your personalized cover letter</p>
+                    </div>
+                `;
+                document.getElementById('exportBtn').disabled = true;
+                document.getElementById('wordCountBadge').style.display = 'none';
+                generatedContent = '';
+            }
+        }
+
+        // Auto-save to localStorage
+        function saveToLocalStorage() {
+            const formData = {
+                yourName: document.getElementById('yourName').value,
+                yourEmail: document.getElementById('yourEmail').value,
+                yourPhone: document.getElementById('yourPhone').value,
+                yourAddress: document.getElementById('yourAddress').value,
+                companyName: document.getElementById('companyName').value,
+                hiringManager: document.getElementById('hiringManager').value,
+                position: document.getElementById('position').value,
+                keyPoints: document.getElementById('keyPoints').value,
+                template: currentTemplate,
+                tone: currentTone
+            };
+            localStorage.setItem('coverLetterData', JSON.stringify(formData));
+        }
+
+        // Load from localStorage
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('coverLetterData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                document.getElementById('yourName').value = data.yourName || '';
+                document.getElementById('yourEmail').value = data.yourEmail || '';
+                document.getElementById('yourPhone').value = data.yourPhone || '';
+                document.getElementById('yourAddress').value = data.yourAddress || '';
+                document.getElementById('companyName').value = data.companyName || '';
+                document.getElementById('hiringManager').value = data.hiringManager || '';
+                document.getElementById('position').value = data.position || '';
+                document.getElementById('keyPoints').value = data.keyPoints || '';
+                
+                if (data.template) {
+                    currentTemplate = data.template;
+                    document.querySelectorAll('.template-option').forEach(opt => {
+                        opt.classList.toggle('active', opt.dataset.template === data.template);
+                    });
+                }
+                
+                if (data.tone) {
+                    currentTone = data.tone;
+                    document.querySelectorAll('.tone-btn').forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.tone === data.tone);
+                    });
+                }
+            }
+        }
+
+        // Auto-save on input
+        document.querySelectorAll('input, textarea, select').forEach(input => {
+            input.addEventListener('input', saveToLocalStorage);
+            input.addEventListener('change', saveToLocalStorage);
+        });
+
+        // Load on page load
+        window.addEventListener('load', loadFromLocalStorage);
+    </script>
+</body>
+</html>
+
