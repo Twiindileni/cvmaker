@@ -355,10 +355,11 @@
         .cover-letter {
             max-width: 800px;
             margin: 0 auto;
-            padding: 60px;
+            padding: 40px 50px;
             background: white;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-            min-height: 297mm;
+            min-height: auto;
+            max-height: 297mm;
             position: relative;
         }
 
@@ -368,34 +369,34 @@
         }
 
         .cover-letter.professional .header {
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary);
         }
 
         .cover-letter.professional .header h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--text);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .cover-letter.professional .contact-info {
             display: flex;
-            gap: 24px;
-            font-size: 13px;
+            gap: 16px;
+            font-size: 12px;
             color: var(--text-light);
             flex-wrap: wrap;
         }
 
         .cover-letter.professional .date {
-            margin-bottom: 30px;
+            margin-bottom: 18px;
             color: var(--text-light);
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .cover-letter.professional .recipient {
-            margin-bottom: 30px;
+            margin-bottom: 18px;
         }
 
         .cover-letter.professional .recipient strong {
@@ -403,17 +404,17 @@
         }
 
         .cover-letter.professional .body {
-            line-height: 1.8;
-            font-size: 15px;
+            line-height: 1.6;
+            font-size: 14px;
             color: var(--text);
         }
 
         .cover-letter.professional .body p {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .cover-letter.professional .signature {
-            margin-top: 40px;
+            margin-top: 24px;
         }
 
         /* Modern Template */
@@ -424,49 +425,49 @@
 
         .cover-letter.modern .header {
             text-align: center;
-            margin-bottom: 50px;
-            padding: 30px;
+            margin-bottom: 24px;
+            padding: 20px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            border-radius: 12px;
+            border-radius: 10px;
         }
 
         .cover-letter.modern .header h1 {
-            font-size: 32px;
+            font-size: 26px;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .cover-letter.modern .header .contact-info {
-            font-size: 13px;
+            font-size: 12px;
             opacity: 0.9;
         }
 
         .cover-letter.modern .date {
             text-align: right;
-            margin-bottom: 30px;
+            margin-bottom: 18px;
             color: var(--text-light);
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .cover-letter.modern .recipient {
-            margin-bottom: 30px;
-            padding-left: 20px;
-            border-left: 4px solid var(--primary);
+            margin-bottom: 18px;
+            padding-left: 16px;
+            border-left: 3px solid var(--primary);
         }
 
         .cover-letter.modern .body {
-            line-height: 1.8;
-            font-size: 15px;
+            line-height: 1.6;
+            font-size: 14px;
             color: var(--text);
         }
 
         .cover-letter.modern .body p {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .cover-letter.modern .signature {
-            margin-top: 50px;
+            margin-top: 24px;
             text-align: right;
         }
 
@@ -474,67 +475,67 @@
         .cover-letter.creative {
             font-family: 'Playfair Display', serif;
             background: white;
-            border: 3px solid var(--primary);
+            border: 2px solid var(--primary);
         }
 
         .cover-letter.creative .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
             position: relative;
         }
 
         .cover-letter.creative .header::after {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
+            width: 80px;
+            height: 2px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
 
         .cover-letter.creative .header h1 {
-            font-size: 36px;
+            font-size: 28px;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 12px;
-            letter-spacing: 2px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
         .cover-letter.creative .header .contact-info {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-light);
             font-style: italic;
         }
 
         .cover-letter.creative .date {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 18px;
             color: var(--text-light);
-            font-size: 14px;
+            font-size: 13px;
             font-style: italic;
         }
 
         .cover-letter.creative .recipient {
-            margin-bottom: 30px;
+            margin-bottom: 18px;
             text-align: center;
         }
 
         .cover-letter.creative .body {
-            line-height: 2;
-            font-size: 16px;
+            line-height: 1.7;
+            font-size: 14px;
             color: var(--text);
             text-align: justify;
         }
 
         .cover-letter.creative .body p {
-            margin-bottom: 20px;
-            text-indent: 30px;
+            margin-bottom: 14px;
+            text-indent: 20px;
         }
 
         .cover-letter.creative .signature {
-            margin-top: 50px;
+            margin-top: 24px;
             text-align: center;
             font-style: italic;
         }
@@ -1012,28 +1013,43 @@
                     scale: 2,
                     useCORS: true,
                     logging: false,
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    width: coverLetter.offsetWidth,
+                    height: coverLetter.scrollHeight
                 });
 
                 const imgData = canvas.toDataURL('image/png');
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF('p', 'mm', 'a4');
 
-                const imgWidth = 210;
+                // A4 dimensions in mm
+                const pageWidth = 210;
                 const pageHeight = 297;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                let heightLeft = imgHeight;
-                let position = 0;
+                const margin = 10; // 10mm margin on all sides
+                const contentWidth = pageWidth - (margin * 2);
+                const contentHeight = pageHeight - (margin * 2);
 
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
+                // Calculate scaling to fit on one page
+                const imgWidth = (canvas.width * 0.264583); // Convert pixels to mm
+                const imgHeight = (canvas.height * 0.264583);
+                
+                let finalWidth = imgWidth;
+                let finalHeight = imgHeight;
+                
+                // Scale down if content is too large
+                if (imgWidth > contentWidth || imgHeight > contentHeight) {
+                    const widthRatio = contentWidth / imgWidth;
+                    const heightRatio = contentHeight / imgHeight;
+                    const ratio = Math.min(widthRatio, heightRatio);
+                    finalWidth = imgWidth * ratio;
+                    finalHeight = imgHeight * ratio;
                 }
+
+                // Center the image on the page
+                const x = (pageWidth - finalWidth) / 2;
+                const y = (pageHeight - finalHeight) / 2;
+
+                pdf.addImage(imgData, 'PNG', x, y, finalWidth, finalHeight);
 
                 const yourName = document.getElementById('yourName').value.trim() || 'CoverLetter';
                 pdf.save(`${yourName}_CoverLetter_${currentTemplate}.pdf`);
